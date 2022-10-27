@@ -8,15 +8,19 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1 or /properties/1.json
   def show
+    @stations = @property.stations
   end
 
   # GET /properties/new
   def new
     @property = Property.new
+    @property.stations.new
+    @property.stations.new
   end
 
   # GET /properties/1/edit
   def edit
+    @property.stations.new
   end
 
   # POST /properties or /properties.json
@@ -64,6 +68,6 @@ class PropertiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def property_params
-      params.require(:property).permit(:name, :price, :address, :age, :note)
+      params.require(:property).permit(:id, :name, :price, :address, :age, :note, stations_attributes: [:id, :route, :station, :time])
     end
 end
